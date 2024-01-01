@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json()); 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/choreTracker')
+mongoose.connect('mongodb://127.0.0.1:27017/choreTracker')
   .then(() => {
     console.log('Connected to MongoDB');
   }).catch(err => {

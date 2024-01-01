@@ -1,4 +1,3 @@
-// src/components/ParentRegistration.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -8,10 +7,11 @@ function ParentRegistration() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('username', username, 'password', password);
     try {
       const response = await axios.post('http://localhost:3000/api/users/register', {
-        username,
-        password
+        username: username,
+        password: password
       });
       console.log(response.data);
       // Redirect to login or dashboard here
