@@ -1,6 +1,4 @@
-// src/components/CreateChildAccount.js
 import React, { useState } from 'react';
-import axios from 'axios';
 
 function CreateChildAccount() {
   const [childUsername, setChildUsername] = useState('');
@@ -11,19 +9,25 @@ function CreateChildAccount() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/users/createChild', {
-        username: childUsername,
-        password: childPassword
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
+      const response = await fetch('http://localhost:3000/api/users/createChild', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          username: childUsername,
+          password: childPassword
+        })
       });
-      console.log(response.data);
+      const data = await response.json();
+      console.log(data);
       // Redirect or update UI here
     } catch (error) {
       console.error('Child account creation failed:', error);
     }
   };
-
+  
   return (
     <div>
       <h2>Create Child Account</h2>

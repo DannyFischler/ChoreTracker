@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+
 
 function ParentRegistration() {
   const [username, setUsername] = useState('');
@@ -9,17 +9,24 @@ function ParentRegistration() {
     event.preventDefault();
     console.log('username', username, 'password', password);
     try {
-      const response = await axios.post('/api/users/register', {
-        username: username,
-        password: password
+      const response = await fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
       });
-      console.log(response.data);
+      const data = await response.json();
+      console.log(data);
       // Redirect to login or dashboard here
     } catch (error) {
       console.error('Registration failed:', error);
     }
   };
-
+  
   return (
     <div>
       <h2>Parent Registration</h2>
