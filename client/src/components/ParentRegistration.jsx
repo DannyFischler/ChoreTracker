@@ -9,7 +9,7 @@ function ParentRegistration() {
     event.preventDefault();
     console.log('username', username, 'password', password);
     try {
-      const response = await axios.post('http://localhost:3000/api/users/register', {
+      const response = await axios.post('/api/users/register', {
         username: username,
         password: password
       });
