@@ -1,17 +1,28 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Chores() {
-    const history = useHistory();
+  const navigate = useNavigate();
 
-    function handleClick() {
-        history.push("/viewallchores");
+  function handleClick() {
+    navigate("/viewallchores");
+  }
 
-    }
-    return(
-
-    <button type="button" onClick={handleClick} class="btn btn-primary KidButton">View Chores</button>
-    )
+  return (
+    <div>
+      <h2>Chores</h2>
+      <button className="btn btn-success" onClick={() => navigate("/")}>
+        Log Out
+      </button>
+      <button
+        type="button"
+        onClick={handleClick}
+        className="btn btn-primary KidButton"
+      >
+        View Chores
+      </button>
+    </div>
+  );
 }
 
-export default Chores
+export default Chores;

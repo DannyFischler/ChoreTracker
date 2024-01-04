@@ -6,6 +6,7 @@ import ParentRegistration from './components/ParentRegistration';
 import ParentDashboard from './components/ParentDashboard';
 import CreateChildAccount from './components/CreateChildAccount';
 import Login from './components/Login';
+import Chores from './components/Chores';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<ParentDashboard />} />
             <Route path="/create-child-account" element={<CreateChildAccount />} />
+            <Route path="/chores" element={<Chores />} />
             {/* Additional routes can be added here */}
           </Routes>
         </div>
