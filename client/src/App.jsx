@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
-import client from './apolloClient'; // Ensure this path is correct
+import client from './apolloClient'; 
 import ParentRegistration from './components/ParentRegistration';
 import ParentDashboard from './components/ParentDashboard';
 import CreateChildAccount from './components/CreateChildAccount';
