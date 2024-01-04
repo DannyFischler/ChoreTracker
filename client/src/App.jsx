@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ParentRegistration from '../../ChoreTracker/my-react-app/src/components/ParentRegistration';
-import ParentDashboard from '../../ChoreTracker/my-react-app/src/components/ParentDashboard';
-import CreateChildAccount from '../../ChoreTracker/my-react-app/src/components/CreateChildAccount';
-import Login from '../../ChoreTracker/my-react-app/src/components/Login';
+import ParentRegistration from './components/ParentRegistration';
+import ParentDashboard from './components/ParentDashboard';
+import CreateChildAccount from './components/CreateChildAccount';
+import Login from './components/Login';
 
 function App() {
   return (
