@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function CreateChildAccount() {
   const [childUsername, setChildUsername] = useState('');
   const [childPassword, setChildPassword] = useState('');
-  // Assume parent's token is stored and accessed here
+  // parent's token is stored and accessed here
   const token = 'parent-auth-token';
 
   const handleSubmit = async (event) => {

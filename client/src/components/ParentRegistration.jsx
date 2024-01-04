@@ -4,19 +4,24 @@ import React, { useState } from 'react';
 function ParentRegistration() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('username', username, 'password', password);
     try {
-      const response = await fetch('/api/users/register', {
+      const response = await fetch('http://localhost:3000/graphql', { // Adjust the URL if needed
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          username: username,
-          password: password
+          query: `
+            mutation {
+              register(username: "${username}", password: "${password}") {
+                id
+                username
+          
+              }
+            }
+          `
         })
       });
       const data = await response.json();
@@ -26,6 +31,7 @@ function ParentRegistration() {
       console.error('Registration failed:', error);
     }
   };
+  
   
   return (
     <div>
