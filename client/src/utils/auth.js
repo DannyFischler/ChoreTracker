@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import client from '../apolloClient'; 
 
 export const login = async (username, password) => {
   

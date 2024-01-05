@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { gql } from '@apollo/client';
-import client from './path/to/apolloClient'; 
-
-export const login = async (username, password) => {
-  // ... your login function
-};
-
+import { gql, useMutation } from '@apollo/client';
 
 const REGISTER_MUTATION = gql`
-  mutation Register($username: String!, $password: String!) {
+  mutation register($username: String!, $password: String!) {
     register(username: $username, password: $password) {
       id
       username

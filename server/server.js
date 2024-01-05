@@ -3,22 +3,10 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const cors = require('cors'); 
 const userRoutes = require('./routes/userRoutes');
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 3001;
+const { typeDefs, resolvers } = require('./schemas');
 
 const app = express();
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world',
-  },
-};
 
 const server = new ApolloServer({ typeDefs, resolvers });
 
