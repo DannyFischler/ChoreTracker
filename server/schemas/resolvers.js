@@ -33,9 +33,9 @@ const resolvers = {
     },
   },
   Mutation: {
-    register: async (_, { username, email }) => {
+    register: async (_, { username, password }) => {
       try {
-        const newUser = await User.create({ username, email });
+        const newUser = await User.create({ username, password });
         return newUser;
       } catch (error) {
         throw new Error('Error adding user');
