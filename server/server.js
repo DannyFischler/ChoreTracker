@@ -2,7 +2,6 @@ const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const cors = require('cors'); 
-const userRoutes = require('./routes/userRoutes');
 const PORT = process.env.PORT || 3001;
 const { typeDefs, resolvers } = require('./schemas');
 
