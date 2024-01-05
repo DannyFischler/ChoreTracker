@@ -24,7 +24,7 @@ const typeDefs = `
   }
 
   type Mutation {
-    register(username: String!, password: String!): User 
+    addUser(username: String!, password: String!): User 
     createChore(parent_id: ID!, chore_name: String!, amount: Float): Chore
     updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
     deleteChore(id: ID!): Chore

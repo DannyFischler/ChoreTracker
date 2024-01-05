@@ -33,7 +33,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    register: async (_, { username, password }) => {
+    addUser: async (_, { username, password }) => {
       try {
         const newUser = await User.create({ username, password });
         return newUser;
