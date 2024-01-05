@@ -1,38 +1,36 @@
 import React, { useState } from 'react';
+import { gql } from '@apollo/client';
+import client from './path/to/apolloClient'; 
 
+export const login = async (username, password) => {
+  // ... your login function
+};
+
+
+const REGISTER_MUTATION = gql`
+  mutation Register($username: String!, $password: String!) {
+    register(username: $username, password: $password) {
+      id
+      username
+    }
+  }
+`;
 
 function ParentRegistration() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [register, { data, loading, error }] = useMutation(REGISTER_MUTATION);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/graphql', { // Adjust the URL if needed
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: `
-            mutation {
-              register(username: "${username}", password: "${password}") {
-                id
-                username
-          
-              }
-            }
-          `
-        })
-      });
-      const data = await response.json();
-      console.log(data);
-      // Redirect to login or dashboard here
+      await register({ variables: { username, password } });
+      // Handle success - redirect or show message
     } catch (error) {
       console.error('Registration failed:', error);
     }
   };
-  
-  
+
   return (
     <div>
       <h2>Parent Registration</h2>

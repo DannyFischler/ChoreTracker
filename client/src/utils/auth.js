@@ -1,23 +1,27 @@
-
-const API_URL = 'http://yourserver.com/api/';
+import { gql } from '@apollo/client';
 
 export const login = async (username, password) => {
-  const response = await post(`${API_URL}login`, { username, password });
-  if (response.data.token) {
-    localStorage.setItem('user', JSON.stringify(response.data));
+  
+  const LOGIN_MUTATION = gql`
+    mutation Login($username: String!, $password: String!) {
+      login(username: $username, password: $password) {
+        token
+      }
+    }
+  `;
+
+  try {
+    const response = await client.mutate({
+      mutation: LOGIN_MUTATION,
+      variables: { username, password },
+    });
+
+    const { token } = response.data.login;
+    if (token) {
+      localStorage.setItem('user', JSON.stringify({ token }));
+    }
+    return { token };
+  } catch (error) {
+    console.error('Login error', error);
   }
-  return response.data;
-};
-
-export const logout = () => {
-  localStorage.removeItem('user');
-};
-
-export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem('user'));
-};
-
-export const isAuthenticated = () => {
-  const user = getCurrentUser();
-  return !!user && !!user.token;
 };
