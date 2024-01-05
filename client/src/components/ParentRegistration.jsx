@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-
-const REGISTER_MUTATION = gql`
-  mutation addUser($username: String!, $password: String!) {
-    register(username: $username, password: $password) {
-      id
-      username
-    }
-  }
-`;
+import { ADD_USER } from '../utils/mutations';
 
 function ParentRegistration() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [register, { data, loading, error }] = useMutation(REGISTER_MUTATION);
+  const [register, { data, loading, error }] = useMutation(ADD_USER);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
 
-const LOGIN_MUTATION = gql`
-  mutation Login($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-    }
-  }
-`;
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const [login, { data, loading, error }] = useMutation(LOGIN_USER);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
