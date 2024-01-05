@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
+
+const LOGIN_MUTATION = gql`
+  mutation Login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+    }
+  }
+`;
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username,
-          password
-        })
-      });
-      const data = await response.json();
+      await login({ variables: { username, password } });
       console.log('Logged in:', data);
-      // handle the login token here
+      // handle the login token here (e.g., store it in localStorage)
       // redirect to the appropriate dashboard 
     } catch (error) {
+      // Error handling is managed by the `error` variable from useMutation
       console.error('Login failed:', error);
     }
   };
@@ -29,6 +30,8 @@ const Login = () => {
   return (
     <div>
       <h2>Login</h2>
+      {loading && <p>Logging in...</p>}
+      {error && <p>Error: {error.message}</p>}
       <form onSubmit={handleSubmit}>
         <input 
           type="text"

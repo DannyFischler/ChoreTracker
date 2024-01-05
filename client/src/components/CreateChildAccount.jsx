@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
+
+const CREATE_CHILD_ACCOUNT_MUTATION = gql`
+  mutation CreateChildAccount($username: String!, $password: String!, $token: String!) {
+    createChildAccount(username: $username, password: $password, token: $token) {
+      id
+      username
+    }
+  }
+`;
 
 function CreateChildAccount() {
   const [childUsername, setChildUsername] = useState('');
   const [childPassword, setChildPassword] = useState('');
-  // parent's token is stored and accessed here
-  const token = 'parent-auth-token';
+  const token = 'parent-auth-token'; 
+
+  const [createChildAccount, { data, loading, error }] = useMutation(CREATE_CHILD_ACCOUNT_MUTATION);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/users/createChild', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          username: childUsername,
-          password: childPassword
-        })
+      await createChildAccount({ 
+        variables: { 
+          username: childUsername, 
+          password: childPassword,
+          token: token
+        }
       });
-      const data = await response.json();
-      console.log(data);
       // Redirect or update UI here
     } catch (error) {
       console.error('Child account creation failed:', error);
