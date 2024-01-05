@@ -1,4 +1,4 @@
-const { User, Chore } = require('./models');
+const { User, Chore } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -33,7 +33,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (_, { username, email }) => {
+    register: async (_, { username, email }) => {
       try {
         const newUser = await User.create({ username, email });
         return newUser;
