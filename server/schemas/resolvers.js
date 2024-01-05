@@ -1,4 +1,4 @@
-const { User, Chore } = require('../models');
+const { user, Chore } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -33,14 +33,17 @@ const resolvers = {
     },
   },
   Mutation: {
-    addUser: async (_, { username, password }) => {
-      try {
-        const newUser = await User.create({ username, password });
-        return newUser;
-      } catch (error) {
-        throw new Error('Error adding user');
+    addUser: async (_, { username, email, password }) => {
+      const existingUser = await user.findOne({ username });
+      if (existingUser) {
+        throw new Error('Username already exists');
       }
+      const newUser = await user.create({ username, email, password });
+      const token = jwt.sign({ userId: newUser.id }, 'your-secret-key', { expiresIn: '1h' });
+      return { token, user: newUser };
     },
+    
+
     createChore: async (_, { parent_id, chore_name, amount }) => {
       try {
         const newChore = await Chore.create({ parent_id, chore_name, amount });
