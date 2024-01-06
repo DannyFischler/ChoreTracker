@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     users: async () => {
       try {
-        const users = await User.find();
+        const users = await user.find();
         return users;
       } catch (error) {
         throw new Error('Error fetching users');
@@ -80,7 +80,7 @@ const resolvers = {
     },
     login: async (_, { username, password }) => {
       try {
-        const user = await User.findOne({ username });
+        const user = await user.findOne({ username });
 
         if (!user) {
           throw new Error('User not found');
