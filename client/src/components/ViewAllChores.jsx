@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_CHORES, UPDATE_CHORE, DELETE_CHORE, ADD_CHORE, SAVE_CHORE } from '../utils/mutations'; // Import ADD_CHORE mutation
+import { GET_CHORES, UPDATE_CHORE, DELETE_CHORE, ADD_CHORE, SAVE_CHORE } from '../utils/mutations'; 
+import { GET_CHORES as GET_CHORES_QUERY, QUERY_ME } from '../utils/queries';
 
 function ViewAllChores() {
   const [date, setDate] = useState('');
   const [newChoreName, setNewChoreName] = useState('');
   const [newChoreAmount, setNewChoreAmount] = useState('');
   
-  const { loading, error, data } = useQuery(GET_CHORES);
+  const { loading, error, data } = useQuery(GET_CHORES_QUERY);
   const [updateChoreMutation] = useMutation(UPDATE_CHORE);
   const [deleteChoreMutation] = useMutation(DELETE_CHORE);
   const [addChoreMutation] = useMutation(ADD_CHORE); 
@@ -132,6 +133,13 @@ function ViewAllChores() {
                   className="btn btn-danger"
                 >
                   Delete Chore
+                </button>
+                <button
+                  type="button"
+                  onClick={() => saveChore(chore.chores_id)}
+                  className="btn btn-warning"
+                >
+                  Save Chore
                 </button>
               </div>
             ))}
