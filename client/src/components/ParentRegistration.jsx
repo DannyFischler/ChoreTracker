@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
 function ParentRegistration() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');  
   const [password, setPassword] = useState('');
   const [register, { data, loading, error }] = useMutation(ADD_USER);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await register({ variables: { username, password } });
+      await register({ variables: { username, email, password } });
       // Handle success - redirect or show message
     } catch (error) {
       console.error('Registration failed:', error);
@@ -29,6 +30,13 @@ function ParentRegistration() {
           required
         />
         <input 
+          type="email"  
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input 
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -37,6 +45,8 @@ function ParentRegistration() {
         />
         <button type="submit">Register</button>
       </form>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>} {/* Display any error messages */}
     </div>
   );
 }
