@@ -133,6 +133,13 @@ function ViewAllChores() {
                 >
                   Delete Chore
                 </button>
+                <button
+                  type="button"
+                  onClick={() => saveChore(chore.chores_id)}
+                  className="btn btn-warning"
+                >
+                  Save Chore
+                </button>
               </div>
             ))}
           </div>
