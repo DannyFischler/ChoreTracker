@@ -43,6 +43,27 @@ const resolvers = {
       return { token, user: newUser };
     },
     
+    createChildAccount: async (_, { username, password }) => {
+      const existingUser = await user.findOne({ username });
+      if (existingUser) {
+        throw new Error('Username already exists');
+      }
+    
+      const hashedPassword = await bcrypt.hash(password, 12);
+    
+      const childUser = new User({
+        username,
+        password: hashedPassword,
+        isChild: true,
+      });
+    
+      await childUser.save();
+    
+      const token = jwt.sign({ userId: childUser.id }, 'your-secret-key', { expiresIn: '1h' });
+    
+      return { token, user: childUser };
+    },
+    
 
     createChore: async (_, { parent_id, chore_name, amount }) => {
       try {
