@@ -29,7 +29,7 @@ const typeDefs = `
   }
   
   type Mutation {
-    addUser(username: String!, email: String, password: String!): AuthPayload
+    addUser(username: String!, email: String!, password: String!): AuthPayload
     createChore(parent_id: ID!, chore_name: String!, amount: Float): Chore
     updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
     deleteChore(id: ID!): Chore
