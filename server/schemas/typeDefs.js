@@ -35,6 +35,8 @@ const typeDefs = `
     updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): String
+    addChore(parent_id: ID!, chore_name: String!, amount: Float): Chore
+    saveChore(id: ID!, date_approved: String, date_completed: String): Chore
   }
 `;
 
