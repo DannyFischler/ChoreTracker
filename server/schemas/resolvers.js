@@ -31,7 +31,34 @@ const resolvers = {
       const token = jwt.sign({ userId: newUser.id }, 'your-secret-key', { expiresIn: '1h' });
       return { token, user: newUser };
     },
+<<<<<<< HEAD
+    
+    createChildAccount: async (_, { username, password }) => {
+      const existingUser = await user.findOne({ username });
+      if (existingUser) {
+        throw new Error('Username already exists');
+      }
+    
+      const hashedPassword = await bcrypt.hash(password, 12);
+    
+      const childUser = new User({
+        username,
+        password: hashedPassword,
+        isChild: true,
+      });
+    
+      await childUser.save();
+    
+      const token = jwt.sign({ userId: childUser.id }, 'your-secret-key', { expiresIn: '1h' });
+    
+      return { token, user: childUser };
+    },
+    
+
+    createChore: async (_, { parent_id, chore_name, amount }) => {
+=======
     login: async (_, { username, password }) => {
+>>>>>>> c24685f38c73f9af3a2d04f64e25853c4d5b37dc
       try {
         const existingUser = await user.findOne({ username });
 

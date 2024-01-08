@@ -1,21 +1,13 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-
-const CREATE_CHILD_ACCOUNT_MUTATION = gql`
-  mutation CreateChildAccount($username: String!, $password: String!, $token: String!) {
-    createChildAccount(username: $username, password: $password, token: $token) {
-      id
-      username
-    }
-  }
-`;
+import { CREATE_CHILD_ACCOUNT} from '../utils/mutations';
 
 function CreateChildAccount() {
   const [childUsername, setChildUsername] = useState('');
   const [childPassword, setChildPassword] = useState('');
   const token = 'parent-auth-token'; 
 
-  const [createChildAccount, { data, loading, error }] = useMutation(CREATE_CHILD_ACCOUNT_MUTATION);
+  const [createChildAccount, { data, loading, error }] = useMutation(CREATE_CHILD_ACCOUNT);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
