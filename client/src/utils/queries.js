@@ -3,7 +3,7 @@ import { gql } from '@apollo/client';
 export const GET_CHORES = gql`
   query getChores {
     chores {
-      _id
+      id
       choreId
       parent_id
       chore_name
@@ -19,7 +19,7 @@ export const GET_CHORES = gql`
 export const QUERY_ME = gql`
   {
     me {
-      _id
+      id
       username
       email
       savedChores {
