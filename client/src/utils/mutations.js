@@ -25,70 +25,14 @@ export const ADD_USER = gql`
 `;
 
 export const CREATE_CHILD_ACCOUNT = gql`
-  mutation CreateChildAccount($username: String!, $password: String!, $token: String!) {
-    createChildAccount(username: $username, password: $password, token: $token) {
+  mutation CreateChildAccount($username: String!, $password: String!) {
+    CreateChildAccount(username: $username, password: $password,) {
       id
       username
     }
   }
 `;
 
-
-export const SAVE_CHORE = gql`
-  mutation saveChore($choreData: ChoreInput!) {
-    saveChore(choreData: $choreData) {
-      id
-      username
-      email
-      savedChores {
-        choreId
-        parent_id
-        chore_name
-        amount
-        date_approved
-        date_completed
-        parent_comments
-        child_comments
-      }
-    }
-  }
-`;
-
-export const DELETE_CHORE = gql`
-  mutation removeChore($choreId: ID!) {
-    removeChore(choreId: $choreId) {
-      id
-      username
-      email
-      savedChores {
-        choreId
-        parent_id
-        chore_name
-        amount
-        date_approved
-        date_completed
-        parent_comments
-        child_comments
-      }
-    }
-  }
-`;
-
-export const GET_CHORES = gql`
-  query getChores {
-    chores {
-      _id
-      choreId
-      parent_id
-      chore_name
-      amount
-      date_approved
-      date_completed
-      parent_comments
-      child_comments
-    }
-  }
-`;
 
 export const UPDATE_CHORE = gql`
   mutation updateChore(
@@ -118,18 +62,43 @@ export const UPDATE_CHORE = gql`
   }
 `;
 
-export const ADD_CHORE = gql`
-  mutation addChore($parent_id: ID!, $chore_name: String!, $amount: Float!) {
-    addChore(parent_id: $parent_id, chore_name: $chore_name, amount: $amount) {
-      _id
-      choreId
-      parent_id
-      chore_name
-      amount
-      date_approved
-      date_completed
-      parent_comments
-      child_comments
+
+export const SAVE_CHORE = gql`
+  mutation saveChore($choreData: ChoreInput!) {
+    saveChore(choreData: $choreData) {
+      id
+      username
+      email
+      savedChores {
+        choreId
+        parent_id
+        chore_name
+        amount
+        date_approved
+        date_completed
+        parent_comments
+        child_comments
+      }
     }
   }
 `;
+
+export const DELETE_CHORE = gql`
+  mutation deleteChore($choreId: ID!) {
+    deleteChore(choreId: $choreId) {
+      id
+      username
+      email
+      savedChores {
+        parent_id
+        chore_name
+        amount
+        date_approved
+        date_completed
+        parent_comments
+        child_comments
+      }
+    }
+  }
+`;
+
