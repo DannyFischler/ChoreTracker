@@ -32,7 +32,7 @@ const resolvers = {
       return { token, user: newUser };
     },
     
-    createChildAccount: async (_, { username, password }) => {
+    CreateChildAccount: async (_, { username, password }) => {
       const existingUser = await user.findOne({ username });
       if (existingUser) {
         throw new Error('Username already exists');

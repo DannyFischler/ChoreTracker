@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "start-server": "cd server && npm start",
-  "start-client": "cd client && npm start",
-  "start": "concurrently \"npm run start-server\" \"npm run start-client\""
-},
-
- "keywords": [],
+  "scripts": {
+    "start-server": "cd server && npm start",
+    "start-client": "cd client && npm start",
+    "start": "concurrently \"npm run start-server\" \"npm run start-client\""
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^8.2.2"
-    
-}
+  },
+  "dependencies": {
+    "graphql": "^16.8.1"
+  }
 }
