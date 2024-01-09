@@ -1,4 +1,4 @@
-const { User, Chore } = require('../models');
+const { user, Chore } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -6,7 +6,7 @@ const resolvers = {
   Query: {
     users: async () => {
       try {
-        const users = await User.find();
+        const users = await user.find();
         return users;
       } catch (error) {
         throw new Error('Error fetching users');
@@ -20,33 +20,62 @@ const resolvers = {
         throw new Error('Error fetching chores');
       }
     },
-    chore: async (_, { id }) => {
-      try {
-        const chore = await Chore.findById(id);
-        if (!chore) {
-          throw new Error('Chore not found');
-        }
-        return chore;
-      } catch (error) {
-        throw new Error('Error fetching chore by ID');
-      }
-    },
   },
   Mutation: {
-    addUser: async (_, { username, password }) => {
-      try {
-        const newUser = await User.create({ username, password });
-        return newUser;
-      } catch (error) {
-        throw new Error('Error adding user');
+    addUser: async (_, { username, email, password }) => {
+      const existingUser = await user.findOne({ username });
+      if (existingUser) {
+        throw new Error('Username already exists');
       }
+      const newUser = await user.create({ username, email, password });
+      const token = jwt.sign({ userId: newUser.id }, 'your-secret-key', { expiresIn: '1h' });
+      return { token, user: newUser };
     },
+<<<<<<< HEAD
+    
+    createChildAccount: async (_, { username, password }) => {
+      const existingUser = await user.findOne({ username });
+      if (existingUser) {
+        throw new Error('Username already exists');
+      }
+    
+      const hashedPassword = await bcrypt.hash(password, 12);
+    
+      const childUser = new User({
+        username,
+        password: hashedPassword,
+        isChild: true,
+      });
+    
+      await childUser.save();
+    
+      const token = jwt.sign({ userId: childUser.id }, 'your-secret-key', { expiresIn: '1h' });
+    
+      return { token, user: childUser };
+    },
+    
+
     createChore: async (_, { parent_id, chore_name, amount }) => {
+=======
+    login: async (_, { username, password }) => {
+>>>>>>> c24685f38c73f9af3a2d04f64e25853c4d5b37dc
       try {
-        const newChore = await Chore.create({ parent_id, chore_name, amount });
-        return newChore;
+        const existingUser = await user.findOne({ username });
+
+        if (!existingUser) {
+          throw new Error('User not found');
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+        if (!isPasswordValid) {
+          throw new Error('Invalid password');
+        }
+
+        const token = jwt.sign({ userId: existingUser.id }, 'your-secret-key', { expiresIn: '1h' });
+        return { token, user: existingUser };
       } catch (error) {
-        throw new Error('Error creating chore');
+        throw new Error('Login failed');
       }
     },
     updateChore: async (_, { id, date_approved, date_completed, parent_comments, child_comments }) => {
@@ -75,27 +104,31 @@ const resolvers = {
         throw new Error('Error deleting chore');
       }
     },
-    login: async (_, { username, password }) => {
+    addChore: async (_, { parent_id, chore_name, amount }) => {
       try {
-        const user = await User.findOne({ username });
-
-        if (!user) {
-          throw new Error('User not found');
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordValid) {
-          throw new Error('Invalid password');
-        }
-
-        const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '1h' });
-        return token;
+        const newChore = await Chore.create({ parent_id, chore_name, amount });
+        return newChore;
       } catch (error) {
-        throw new Error('Login failed');
+        throw new Error('Error creating chore');
+      }
+    },
+    saveChore: async (_, { id, date_approved, date_completed }) => {
+      try {
+        const savedChore = await Chore.findByIdAndUpdate(
+          id,
+          { date_approved, date_completed },
+          { new: true }
+        );
+        if (!savedChore) {
+          throw new Error('Chore not found');
+        }
+        return savedChore;
+      } catch (error) {
+        throw new Error('Error saving chore');
       }
     },
   },
 };
 
 module.exports = resolvers;
+
