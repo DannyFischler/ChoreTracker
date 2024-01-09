@@ -99,14 +99,6 @@ const resolvers = {
         throw new Error('Error deleting chore');
       }
     },
-    addChore: async (_, { parent_id, chore_name, amount }) => {
-      try {
-        const newChore = await Chore.create({ parent_id, chore_name, amount });
-        return newChore;
-      } catch (error) {
-        throw new Error('Error creating chore');
-      }
-    },
     saveChore: async (_, { id, date_approved, date_completed }) => {
       try {
         const savedChore = await Chore.findByIdAndUpdate(
