@@ -7,12 +7,12 @@ function CreateChildAccount() {
   const [childPassword, setChildPassword] = useState('');
   const token = 'parent-auth-token'; 
 
-  const [createChildAccount, { data, loading, error }] = useMutation(CREATE_CHILD_ACCOUNT);
+  const [CreateChildAccount, { data, loading, error }] = useMutation(CREATE_CHILD_ACCOUNT);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createChildAccount({ 
+      await CreateChildAccount({ 
         variables: { 
           username: childUsername, 
           password: childPassword,

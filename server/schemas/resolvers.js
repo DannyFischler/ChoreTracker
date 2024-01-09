@@ -40,7 +40,7 @@ const resolvers = {
     
       const hashedPassword = await bcrypt.hash(password, 12);
     
-      const childUser = new User({
+      const childUser = new user({
         username,
         password: hashedPassword,
         isChild: true,

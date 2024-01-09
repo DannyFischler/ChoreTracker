@@ -26,7 +26,7 @@ export const ADD_USER = gql`
 
 export const CREATE_CHILD_ACCOUNT = gql`
   mutation CreateChildAccount($username: String!, $password: String!, $token: String!) {
-    createChildAccount(username: $username, password: $password, token: $token) {
+    CreateChildAccount(username: $username, password: $password, token: $token) {
       id
       username
     }
