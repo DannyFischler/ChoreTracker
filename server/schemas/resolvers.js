@@ -40,7 +40,7 @@ const resolvers = {
     
       const hashedPassword = await bcrypt.hash(password, 12);
     
-      const childUser = new User({
+      const childUser = new user({
         username,
         password: hashedPassword,
         isChild: true,
@@ -53,8 +53,7 @@ const resolvers = {
       return { token, user: childUser };
     },
     
-
-    createChore: async (_, { parent_id, chore_name, amount }) => {
+    login: async (_, { username, password }) => {
       try {
         const existingUser = await user.findOne({ username });
 
