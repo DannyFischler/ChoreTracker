@@ -12,11 +12,12 @@ const resolvers = {
         throw new Error('Error fetching users');
       }
     },
-    chores: async () => {
+    chores: async (_, { parent_id }) => {
       try {
-        const chores = await Chore.find();
+        const chores = await Chore.find({ parent_id });
         return chores;
       } catch (error) {
+        console.error('Error fetching chores:', error);
         throw new Error('Error fetching chores');
       }
     },
@@ -31,28 +32,28 @@ const resolvers = {
       const token = jwt.sign({ userId: newUser.id }, 'your-secret-key', { expiresIn: '1h' });
       return { token, user: newUser };
     },
-    
+
     CreateChildAccount: async (_, { username, password }) => {
       const existingUser = await user.findOne({ username });
       if (existingUser) {
         throw new Error('Username already exists');
       }
-    
+
       const hashedPassword = await bcrypt.hash(password, 12);
-    
+
       const childUser = new user({
         username,
         password: hashedPassword,
         isChild: true,
       });
-    
+
       await childUser.save();
-    
+
       const token = jwt.sign({ userId: childUser.id }, 'your-secret-key', { expiresIn: '1h' });
-    
+
       return { token, user: childUser };
     },
-    
+
     login: async (_, { username, password }) => {
       try {
         const existingUser = await user.findOne({ username });
@@ -73,6 +74,7 @@ const resolvers = {
         throw new Error('Login failed');
       }
     },
+
     updateChore: async (_, { id, date_approved, date_completed, parent_comments, child_comments }) => {
       try {
         const updatedChore = await Chore.findByIdAndUpdate(
@@ -88,6 +90,7 @@ const resolvers = {
         throw new Error('Error updating chore');
       }
     },
+
     deleteChore: async (_, { id }) => {
       try {
         const deletedChore = await Chore.findByIdAndDelete(id);
@@ -99,11 +102,12 @@ const resolvers = {
         throw new Error('Error deleting chore');
       }
     },
-    saveChore: async (_, { id, date_approved, date_completed }) => {
+
+    saveChore: async (_, { id, choreId, date_approved, date_completed }) => {
       try {
         const savedChore = await Chore.findByIdAndUpdate(
           id,
-          { date_approved, date_completed },
+          { choreId, date_approved, date_completed },
           { new: true }
         );
         if (!savedChore) {
@@ -118,4 +122,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-

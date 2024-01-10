@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const choresSchema = new mongoose.Schema({
+const choreSchema = new mongoose.Schema({
   parent_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -14,9 +14,10 @@ const choresSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  completed_by_child_id: {
-    type: Number 
-  },
+ completed_by_child_id: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'Child'
+},
   date_approved: {
     type: Date
   },
@@ -31,6 +32,6 @@ const choresSchema = new mongoose.Schema({
   }
 });
 
-const Chores = mongoose.model('Chores', choresSchema);
+const Chore = mongoose.model('Chore', choreSchema);
 
-module.exports = Chores;
+module.exports = Chore;

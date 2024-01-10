@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_CHORES, UPDATE_CHORE, DELETE_CHORE, ADD_CHORE, SAVE_CHORE } from '../utils/mutations'; 
+import { UPDATE_CHORE, DELETE_CHORE, SAVE_CHORE } from '../utils/mutations'; 
 import { GET_CHORES as GET_CHORES_QUERY, QUERY_ME } from '../utils/queries';
 
 function ViewAllChores() {
@@ -11,7 +11,6 @@ function ViewAllChores() {
   const { loading, error, data } = useQuery(GET_CHORES_QUERY);
   const [updateChoreMutation] = useMutation(UPDATE_CHORE);
   const [deleteChoreMutation] = useMutation(DELETE_CHORE);
-  const [addChoreMutation] = useMutation(ADD_CHORE); 
   const [saveChoreMutation] = useMutation(SAVE_CHORE);
 
   useEffect(() => {
@@ -45,22 +44,6 @@ function ViewAllChores() {
     .catch((err) => console.log(err));
   };
 
-  const addChore = () => {
-    addChoreMutation({
-      variables: {
-        parent_id: 1, 
-        chore_name: newChoreName,
-        amount: parseFloat(newChoreAmount),
-      },
-      refetchQueries: [{ query: GET_CHORES }], 
-    })
-      .then((res) => {
-        console.log("Chore added successfully");
-        setNewChoreName('');
-        setNewChoreAmount('');
-      })
-      .catch((err) => console.log(err));
-  };
   const saveChore = (chores_id) => {
     saveChoreMutation({
       variables: {
@@ -97,8 +80,8 @@ function ViewAllChores() {
             onChange={(e) => setNewChoreAmount(e.target.value)}
           />
 
-          <button type="button" onClick={addChore} className="btn btn-primary">
-            Add Chore
+          <button type="button" onClick={saveChore} className="btn btn-primary">
+            Save Chore
           </button>
         </form>
 
