@@ -14,6 +14,7 @@ function ViewAllChores() {
   const [saveChoreMutation] = useMutation(SAVE_CHORE);
 
   useEffect(() => {
+    console.log("Data after query:", data);
   }, [loading, data]);
 
   const updateChore = (chores_id) => {
@@ -44,16 +45,16 @@ function ViewAllChores() {
     .catch((err) => console.log(err));
   };
 
-  const saveChore = (chores_id) => {
+  const saveChore = (id) => {
     saveChoreMutation({
       variables: {
         id: chores_id,
         date_approved: date,
         date_completed: null,
-        parent_comments: null,
-        child_comments: null,
+        // parent_comments: null,
+        // child_comments: null,
       },
-      refetchQueries: [{ query: GET_CHORES }],
+      refetchQueries: [{ query: GET_CHORES_QUERY }],
     })
       .then((res) => {
         console.log("Chore saved successfully");
@@ -80,10 +81,14 @@ function ViewAllChores() {
             onChange={(e) => setNewChoreAmount(e.target.value)}
           />
 
-          <button type="button" onClick={saveChore} className="btn btn-primary">
-            Save Chore
-          </button>
-        </form>
+<button
+  type="button"
+  onClick={() => saveChore(chore.chores_id)}
+  className="btn btn-warning"
+>
+  Save Chore
+</button>
+</form>
 
         {loading ? (
           <p>Loading...</p>

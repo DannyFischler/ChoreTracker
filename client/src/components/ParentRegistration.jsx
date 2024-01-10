@@ -11,13 +11,15 @@ function ParentRegistration() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await register({ variables: { username, email, password } });
-      // Handle success - redirect or show message
+      const { data: { addUser: { user } } } = await register({
+        variables: { username, email, password },
+      });
+      const userId = user.id;
+      console.log('Registration successful. User ID:', userId);
     } catch (error) {
       console.error('Registration failed:', error);
     }
   };
-
   return (
     <div>
       <h2>Parent Registration</h2>
