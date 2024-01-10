@@ -5,7 +5,6 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       user {
         id
-        username
       }
     }
   }
@@ -16,7 +15,6 @@ export const ADD_USER = gql`
     addUser(username: $username, email: $email, password: $password) {
       user {
         id
-        username
       }
     }
   }
@@ -24,7 +22,7 @@ export const ADD_USER = gql`
 
 export const CREATE_CHILD_ACCOUNT = gql`
   mutation CreateChildAccount($username: String!, $password: String!) {
-    CreateChildAccount(username: $username, password: $password,) {
+    CreateChildAccount(username: $username, password: $password) {
       id
       username
     }
@@ -62,24 +60,20 @@ export const UPDATE_CHORE = gql`
 
 
 export const SAVE_CHORE = gql`
-  mutation saveChore($choreData: ChoreInput!) {
-    saveChore(choreData: $choreData) {
-      id
-      username
-      email
-      savedChores {
-        choreId
-        parent_id
-        chore_name
-        amount
-        date_approved
-        date_completed
-        parent_comments
-        child_comments
-      }
-    }
+mutation saveChore($id: ID!, $date_approved: String, $date_completed: String) {
+  saveChore(id: $id, date_approved: $date_approved, date_completed: $date_completed) {
+    id
+    chore_name
+    amount
+    date_approved
+    date_completed
+    parent_comments
+    child_comments
   }
+}
+
 `;
+
 
 export const DELETE_CHORE = gql`
   mutation deleteChore($choreId: ID!) {

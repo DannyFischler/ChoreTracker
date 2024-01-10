@@ -5,7 +5,11 @@ const typeDefs = `
     email: String
     children: [User]
   }
-
+  type AddUserResponse {
+    token: String
+    user: User
+  }
+  
   type Chore {
     id: ID!
     choreId: ID!
@@ -25,9 +29,8 @@ const typeDefs = `
   }
   
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): User
+    addUser(username: String!, email: String!, password: String!): AddUserResponse
     CreateChildAccount(username: String!, password: String!): User
-    createChore(parent_id: ID!, chore_name: String!, amount: Float): Chore
     updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): String

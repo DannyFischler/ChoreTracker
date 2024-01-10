@@ -16,6 +16,7 @@ export const GET_CHORES = gql`
   }
 `;
 
+
 export const QUERY_ME = gql`
   {
     me {
