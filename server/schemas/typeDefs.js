@@ -8,6 +8,7 @@ const typeDefs = `
 
   type Chore {
     id: ID!
+    choreId: ID!
     parent_id: ID!
     chore_name: String!
     amount: Float

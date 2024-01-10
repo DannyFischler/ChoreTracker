@@ -1,5 +1,5 @@
-const chores = require('./chores');
+const Chore = require('./chore.js');
 const parent = require('./parent.js');
 const user = require( './user.js');
 
-module.exports = { chores, parent, user };
+module.exports = { Chore, parent, user };
