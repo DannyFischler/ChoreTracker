@@ -3,7 +3,13 @@ const typeDefs = `
     id: ID!
     username: String!
     email: String
-    children: [User]
+    children: [Child]
+  }
+
+  type Child {
+    id: ID!
+    username: String!
+
   }
   type AddUserResponse {
     token: String
@@ -12,7 +18,6 @@ const typeDefs = `
   
   type Chore {
     id: ID!
-    choreId: ID!
     parent_id: ID!
     chore_name: String!
     amount: Float
@@ -34,7 +39,8 @@ const typeDefs = `
     updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): String
-    saveChore(id: ID!, date_approved: String, date_completed: String): Chore
+    saveChore(chore_name: String!, amount: Float, parent_id: ID!): Chore
+
   }
 `;
 
