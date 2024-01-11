@@ -60,12 +60,13 @@ export const UPDATE_CHORE = gql`
 
 
 export const SAVE_CHORE = gql`
-mutation saveChore($chore_name: String!, $amount: Float!, $parent_username: String!) {
-  saveChore(chore_name: $chore_name, amount: $amount, parent_username: $parent_username) {
-    id
-    chore_name
-    amount
-    parent_id
+mutation saveChore($chore_name: String!, $amount: Float!) {
+  saveChore(chore_name: $chore_name, amount: $amount) {
+    chore {
+      id
+      chore_name
+      amount
+    }
   }
 }
 

@@ -103,11 +103,10 @@ const resolvers = {
       }
     },
 
-        saveChore: async (_, { chore_name, amount }) => {
+    saveChore: async (_, { chore_name, amount }) => {
           const newChore = new Chore({
             chore_name,
             amount,
-            parent_id
           });
           await newChore.save();
           return newChore;

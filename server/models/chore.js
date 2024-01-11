@@ -1,11 +1,6 @@
 const mongoose = require('mongoose');
 
 const choreSchema = new mongoose.Schema({
-  parent_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Parent'
-  },
   chore_name: {
     type: String,
     required: true
@@ -14,10 +9,6 @@ const choreSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
- completed_by_child_id: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: 'Child'
-},
   date_approved: {
     type: Date
   },

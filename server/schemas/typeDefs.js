@@ -18,7 +18,6 @@ const typeDefs = `
   
   type Chore {
     id: ID!
-    parent_id: ID!
     chore_name: String!
     amount: Float
     date_approved: String
@@ -39,7 +38,7 @@ const typeDefs = `
     updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): String
-    saveChore(chore_name: String!, amount: Float, parent_id: ID!): Chore
+    saveChore(chore_name: String!, amount: Float): Chore
 
   }
 `;
