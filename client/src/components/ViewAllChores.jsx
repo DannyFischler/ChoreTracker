@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { UPDATE_CHORE, DELETE_CHORE, SAVE_CHORE } from '../utils/mutations'; 
-import { GET_CHORES as GET_CHORES_QUERY, QUERY_ME } from '../utils/queries';
+import { GET_CHORES , QUERY_ME } from '../utils/queries';
 
 function ViewAllChores() {
   const [date, setDate] = useState('');
   const [newChoreName, setNewChoreName] = useState('');
   const [newChoreAmount, setNewChoreAmount] = useState('');
   
-  const { loading, error, data } = useQuery(GET_CHORES_QUERY);
+  const { loading, error, data } = useQuery(GET_CHORES);
   const [updateChoreMutation] = useMutation(UPDATE_CHORE);
   const [deleteChoreMutation] = useMutation(DELETE_CHORE);
   const [saveChoreMutation] = useMutation(SAVE_CHORE);
@@ -17,10 +17,9 @@ function ViewAllChores() {
     console.log("Data after query:", data);
   }, [loading, data]);
 
-  const updateChore = (chores_id) => {
+  const updateChore = (id) => {
     updateChoreMutation({
       variables: {
-        id: chores_id,
         date_approved: null, 
         date_completed: date,
         parent_comments: null,
@@ -33,10 +32,10 @@ function ViewAllChores() {
       .catch((err) => console.log(err));
   };
 
-  const deleteChore = (chores_id) => {
+  const deleteChore = (id) => {
     deleteChoreMutation({
       variables: {
-        id: chores_id,
+        id: id,
       },
     })
     .then((res) => {
@@ -45,7 +44,7 @@ function ViewAllChores() {
     .catch((err) => console.log(err));
   };
 
-  const saveChore = (id) => {
+  const saveChore = (chores_id) => {
     saveChoreMutation({
       variables: {
         id: chores_id,
@@ -54,7 +53,7 @@ function ViewAllChores() {
         // parent_comments: null,
         // child_comments: null,
       },
-      refetchQueries: [{ query: GET_CHORES_QUERY }],
+      refetchQueries: [{ query: GET_CHORES }],
     })
       .then((res) => {
         console.log("Chore saved successfully");
@@ -83,7 +82,7 @@ function ViewAllChores() {
 
 <button
   type="button"
-  onClick={() => saveChore(chore.chores_id)}
+  onClick={() => saveChore(chore.id)}
   className="btn btn-warning"
 >
   Save Chore
@@ -97,7 +96,7 @@ function ViewAllChores() {
         ) : data && data.chores.length > 0 ? (
           <div>
             {data.chores.map((chore) => (
-              <div key={chore.chores_id}>
+              <div key={chore.id}>
                 <h6 className="choretxt">
                   <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
                 </h6>
@@ -110,21 +109,21 @@ function ViewAllChores() {
                 ></input>
                 <button
                   type="button"
-                  onClick={() => updateChore(chore.chores_id)}
+                  onClick={() => updateChore(chore.id)}
                   className="btn btn-success"
                 >
                   ✔ Chore Complete!
                 </button>
                 <button
                   type="button"
-                  onClick={() => deleteChore(chore.chores_id)}
+                  onClick={() => deleteChore(chore.id)}
                   className="btn btn-danger"
                 >
                   Delete Chore
                 </button>
                 <button
                   type="button"
-                  onClick={() => saveChore(chore.chores_id)}
+                  onClick={() => saveChore(chore.id)}
                   className="btn btn-warning"
                 >
                   Save Chore

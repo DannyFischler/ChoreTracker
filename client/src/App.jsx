@@ -20,7 +20,7 @@ function App() {
             <Route path="/dashboard" element={<ParentDashboard />} />
             <Route path="/create-child-account" element={<CreateChildAccount />} />
             <Route path="/chores" element={<Chores />} />
-            <Route path="/view-all-chores" element={<ViewAllChores />} />
+            <Route path="/viewallchores" element={<ViewAllChores />} />
           </Routes>
         </div>
       </Router>
