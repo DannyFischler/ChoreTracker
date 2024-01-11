@@ -45,9 +45,7 @@ export const UPDATE_CHORE = gql`
       parent_comments: $parent_comments
       child_comments: $child_comments
     ) {
-      _id
-      choreId
-      parent_id
+      id
       chore_name
       amount
       date_approved
