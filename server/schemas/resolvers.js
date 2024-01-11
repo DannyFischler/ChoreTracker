@@ -103,22 +103,16 @@ const resolvers = {
       }
     },
 
-    saveChore: async (_, { id, choreId, date_approved, date_completed }) => {
-      try {
-        const savedChore = await Chore.findByIdAndUpdate(
-          id,
-          { choreId, date_approved, date_completed },
-          { new: true }
-        );
-        if (!savedChore) {
-          throw new Error('Chore not found');
+        saveChore: async (_, { chore_name, amount }) => {
+          const newChore = new Chore({
+            chore_name,
+            amount,
+            parent_id
+          });
+          await newChore.save();
+          return newChore;
         }
-        return savedChore;
-      } catch (error) {
-        throw new Error('Error saving chore');
       }
-    },
-  },
-};
-
+    };
+    
 module.exports = resolvers;
