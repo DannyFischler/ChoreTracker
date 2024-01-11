@@ -1,18 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default {
   plugins: [react()],
-    server: {
+  server: {
     port: 3000,
     open: true,
     proxy: {
       '/graphql': {
         target: 'http://localhost:3001',
         changeOrigin: true,
-        // secure: false,
+        // secure: false, // 
       },
-    }
-  }
-})
+    },
+  },
+  optimizeDeps: {
+    include: ['jwt-decode'], // Include specific dependencies in the optimized build
+  },
+};
