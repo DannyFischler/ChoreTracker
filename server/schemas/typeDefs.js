@@ -20,10 +20,7 @@ const typeDefs = `
     id: ID!
     chore_name: String!
     amount: Float
-    date_approved: String
-    date_completed: String
-    parent_comments: String
-    child_comments: String
+    isCompleted: Boolean
   }
 
   type Query {
@@ -34,7 +31,7 @@ const typeDefs = `
   type Mutation {
     addUser(username: String!, email: String!, password: String!): AddUserResponse
     CreateChildAccount(username: String!, password: String!): User
-    updateChore(id: ID!, date_approved: String, date_completed: String, parent_comments: String, child_comments: String): Chore
+    updateChore(id: ID!, chore_name: String, amount: Float, isCompleted: Boolean): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): String
     saveChore(chore_name: String!, amount: Float): Chore
