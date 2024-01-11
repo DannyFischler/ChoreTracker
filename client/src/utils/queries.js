@@ -6,10 +6,7 @@ export const GET_CHORES = gql`
       id
       chore_name
       amount
-      date_approved
-      date_completed
-      parent_comments
-      child_comments
+      isCompleted
     }
   }
 `;
@@ -19,15 +16,10 @@ export const QUERY_ME = gql`
   {
     me {
       id
-      username
-      email
       savedChores {
         chore_name
         amount
-        date_approved
-        date_completed
-        parent_comments
-        child_comments
+        isCompleted
       }
     }
   }

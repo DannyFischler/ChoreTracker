@@ -31,30 +31,15 @@ export const CREATE_CHILD_ACCOUNT = gql`
 
 
 export const UPDATE_CHORE = gql`
-  mutation updateChore(
-    $id: ID!
-    $date_approved: String
-    $date_completed: String
-    $parent_comments: String
-    $child_comments: String
-  ) {
-    updateChore(
-      id: $id
-      date_approved: $date_approved
-      date_completed: $date_completed
-      parent_comments: $parent_comments
-      child_comments: $child_comments
-    ) {
+  mutation UpdateChore($id: ID!, $isCompleted: Boolean!) {
+    updateChore(id: $id, isCompleted: $isCompleted) {
       id
       chore_name
-      amount
-      date_approved
-      date_completed
-      parent_comments
-      child_comments
+      isCompleted
     }
   }
 `;
+
 
 
 export const SAVE_CHORE = gql`
@@ -80,7 +65,6 @@ export const DELETE_CHORE = gql`
       username
       email
       savedChores {
-        parent_id
         chore_name
         amount
         date_approved

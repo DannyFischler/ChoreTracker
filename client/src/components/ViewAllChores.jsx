@@ -20,18 +20,17 @@ function ViewAllChores() {
   const updateChore = (id) => {
     updateChoreMutation({
       variables: {
-        date_approved: null, 
-        date_completed: date,
-        parent_comments: null,
-        child_comments: null,
+        id: id,
+        isCompleted: true,
+        date_completed: date 
       },
     })
-      .then((res) => {
-        console.log("Chore updated successfully");
-      })
-      .catch((err) => console.log(err));
+    .then((res) => {
+      console.log("Chore updated successfully");
+    })
+    .catch((err) => console.log(err));
   };
-
+  
   const deleteChore = (id) => {
     deleteChoreMutation({
       variables: {
@@ -44,14 +43,10 @@ function ViewAllChores() {
     .catch((err) => console.log(err));
   };
 
-  const saveChore = (chores_id) => {
+  const saveChore = (id) => {
     saveChoreMutation({
       variables: {
-        id: chores_id,
-        date_approved: date,
-        date_completed: null,
-        // parent_comments: null,
-        // child_comments: null,
+        id: id,
       },
       refetchQueries: [{ query: GET_CHORES }],
     })
@@ -61,33 +56,18 @@ function ViewAllChores() {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className="childContainer">
       <div className="container">
         <h4>Mark Chores Complete</h4>
         <form>
           <label>New Chore Name:</label>
-          <input
-            type="text"
-            value={newChoreName}
-            onChange={(e) => setNewChoreName(e.target.value)}
-          />
-
+          <input type="text" value={newChoreName} onChange={(e) => setNewChoreName(e.target.value)} />
           <label>New Chore Amount:</label>
-          <input
-            type="number"
-            value={newChoreAmount}
-            onChange={(e) => setNewChoreAmount(e.target.value)}
-          />
-
-<button
-  type="button"
-  onClick={() => saveChore(chore.id)}
-  className="btn btn-warning"
->
-  Save Chore
-</button>
-</form>
+          <input type="number" value={newChoreAmount} onChange={(e) => setNewChoreAmount(e.target.value)} />
+          <button type="button" onClick={() => saveChore()} className="btn btn-warning">Save Chore</button>
+        </form>
 
         {loading ? (
           <p>Loading...</p>
@@ -99,35 +79,13 @@ function ViewAllChores() {
               <div key={chore.id}>
                 <h6 className="choretxt">
                   <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
+                  {chore.isCompleted ? <span> - Completed</span> : <span> - Pending</span>}
                 </h6>
                 <h6>Date Completed:</h6>
-                <input
-                  type="Date"
-                  onChange={(e) => setDate(e.target.value)}
-                  className="form-control"
-                  id="date"
-                ></input>
-                <button
-                  type="button"
-                  onClick={() => updateChore(chore.id)}
-                  className="btn btn-success"
-                >
-                  ✔ Chore Complete!
-                </button>
-                <button
-                  type="button"
-                  onClick={() => deleteChore(chore.id)}
-                  className="btn btn-danger"
-                >
-                  Delete Chore
-                </button>
-                <button
-                  type="button"
-                  onClick={() => saveChore(chore.id)}
-                  className="btn btn-warning"
-                >
-                  Save Chore
-                </button>
+                <input type="Date" onChange={(e) => setDate(e.target.value)} className="form-control" id="date" />
+                <button type="button" onClick={() => updateChore(chore.id)} className="btn btn-success">✔ Chore Complete!</button>
+                <button type="button" onClick={() => deleteChore(chore.id)} className="btn btn-danger">Delete Chore</button>
+                <button type="button" onClick={() => saveChore(chore.id)} className="btn btn-warning">Save Chore</button>
               </div>
             ))}
           </div>
