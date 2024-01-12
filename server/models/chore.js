@@ -1,27 +1,25 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const choreSchema = new mongoose.Schema({
   chore_name: {
     type: String,
-    required: true
+    required: true,
   },
   amount: {
     type: Number,
-    required: true
+    required: true,
   },
   date_approved: {
-    type: Date
+    type: Date,
   },
   date_completed: {
-    type: Date
+    type: Date,
   },
-  isCompleted: { 
-    type: Boolean
-  }
-
-  
+  isCompleted: {
+    type: Boolean,
+  },
 });
 
-const Chore = mongoose.model('Chore', choreSchema);
+const Chore = mongoose.model("Chore", choreSchema);
 
 module.exports = Chore;

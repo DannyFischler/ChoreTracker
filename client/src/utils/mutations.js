@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($username: String!, $password: String!) {
@@ -33,7 +33,6 @@ export const CREATE_CHILD_ACCOUNT = gql`
   }
 `;
 
-
 export const UPDATE_CHORE = gql`
   mutation UpdateChore($id: ID!, $isCompleted: Boolean!) {
     updateChore(id: $id, isCompleted: $isCompleted) {
@@ -44,23 +43,17 @@ export const UPDATE_CHORE = gql`
   }
 `;
 
-
-
 export const SAVE_CHORE = gql`
-mutation saveChore($chore_name: String!, $amount: Float!) {
-  saveChore(chore_name: $chore_name, amount: $amount) {
-    savedChores {
-      id
-      chore_name
-      amount
+  mutation saveChore($chore_name: String!, $amount: Float!) {
+    saveChore(chore_name: $chore_name, amount: $amount) {
+      savedChores {
+        id
+        chore_name
+        amount
+      }
     }
   }
-}
-
-
-
 `;
-
 
 export const DELETE_CHORE = gql`
   mutation deleteChore($id: ID!) {
@@ -69,4 +62,3 @@ export const DELETE_CHORE = gql`
     }
   }
 `;
-
