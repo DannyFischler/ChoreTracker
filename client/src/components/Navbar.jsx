@@ -21,7 +21,7 @@ const AppNavbar = () => {
           backgroundColor: 'lightblue',
           height: '50px', 
         }}
-        fluid 
+        fluid="true"
       >
      <Nav className='ml-auto' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center'  }}>
           <Nav.Link as={Link} to='/register' style={{ marginRight: '15px' }}>Sign Up</Nav.Link>
