@@ -43,20 +43,22 @@ function ViewAllChores() {
     .catch((err) => console.log(err));
   };
 
-  const saveChore = (id) => {
+  const saveChore = () => {
     saveChoreMutation({
       variables: {
-        id: id,
+        chore_name: newChoreName,
+        amount: parseFloat(newChoreAmount),
       },
       refetchQueries: [{ query: GET_CHORES }],
     })
-      .then((res) => {
-        console.log("Chore saved successfully");
-        setDate('');
-      })
-      .catch((err) => console.log(err));
+    .then((res) => {
+      console.log("Chore saved successfully");
+      setNewChoreName('');
+      setNewChoreAmount('');
+    })
+    .catch((err) => console.log(err));
   };
-
+  
   return (
     <div className="childContainer">
       <div className="container">
@@ -85,7 +87,6 @@ function ViewAllChores() {
                 <input type="Date" onChange={(e) => setDate(e.target.value)} className="form-control" id="date" />
                 <button type="button" onClick={() => updateChore(chore.id)} className="btn btn-success">✔ Chore Complete!</button>
                 <button type="button" onClick={() => deleteChore(chore.id)} className="btn btn-danger">Delete Chore</button>
-                <button type="button" onClick={() => saveChore(chore.id)} className="btn btn-warning">Save Chore</button>
               </div>
             ))}
           </div>
