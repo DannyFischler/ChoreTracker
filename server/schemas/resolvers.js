@@ -75,11 +75,11 @@ const resolvers = {
       }
     },
 
-    updateChore: async (_, { id, date_approved, date_completed, parent_comments, child_comments }) => {
+    updateChore: async (_, { id }) => {
       try {
         const updatedChore = await Chore.findByIdAndUpdate(
-          id,
-          { date_approved, date_completed, parent_comments, child_comments },
+          { _id: id },
+          { isCompleted: true },
           { new: true }
         );
         if (!updatedChore) {

@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+//const Chore = require('./chore');
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, unique: true, sparse: true }, 
   password: { type: String, required: true },
-  isChild: { type: Boolean, default: false },
-  parent: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  //isChild: { type: Boolean, default: false },
+  //parent: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  //savedChores: [Chore]
 });
 
 userSchema.pre('save', async function(next) {
