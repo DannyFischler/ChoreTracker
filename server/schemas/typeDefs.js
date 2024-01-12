@@ -17,6 +17,7 @@ const typeDefs = `
     chore_name: String!
     amount: Float
     isCompleted: Boolean
+    user: User 
   }
 
   type Query {

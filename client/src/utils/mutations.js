@@ -63,17 +63,9 @@ mutation saveChore($chore_name: String!, $amount: Float!) {
 
 
 export const DELETE_CHORE = gql`
-  mutation deleteChore($choreId: ID!) {
-    deleteChore(choreId: $choreId) {
+  mutation deleteChore($id: ID!) {
+    deleteChore(id: $id) {
       id
-      savedChores {
-        chore_name
-        amount
-        date_approved
-        date_completed
-        parent_comments
-        child_comments
-      }
     }
   }
 `;
