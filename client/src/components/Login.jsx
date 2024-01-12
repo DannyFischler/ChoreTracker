@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-
+import backgroundImage from '../assets/background5.jpeg';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -22,26 +22,49 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover',
+      minHeight: '100vh',
+      width: '1440px',
+      height: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <h2 style={{ color: 'white' }}>Login</h2>
       {loading && <p>Logging in...</p>}
       {error && <p>Error: {error.message}</p>}
-      <form onSubmit={handleSubmit}>
-        <input 
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%', 
+          maxWidth: '400px', 
+        }}
+      >
+        <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Username"
           required
+          style={{ width: '100%', marginBottom: '10px', padding: '8px' }} 
         />
-        <input 
+        <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
+          style={{ width: '100%', marginBottom: '10px', padding: '8px' }} 
         />
-        <button type="submit">Login</button>
+        <button type="submit" style={{ width: '100%', padding: '10px' }}>
+          Login
+        </button>
       </form>
     </div>
   );
