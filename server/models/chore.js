@@ -18,6 +18,8 @@ const choreSchema = new mongoose.Schema({
   isCompleted: { 
     type: Boolean
   }
+
+  
 });
 
 const Chore = mongoose.model('Chore', choreSchema);
