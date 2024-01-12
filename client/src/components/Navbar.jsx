@@ -22,6 +22,7 @@ const AppNavbar = () => {
           height: '50px',
           fontSize: '18px', 
         }}
+        fluid="true"
       >
               <Nav style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
           <Nav.Link as={Link} to='/' style={{ marginRight: '15px', color: '#fff' }}>Home</Nav.Link>
