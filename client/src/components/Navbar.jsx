@@ -17,24 +17,28 @@ const AppNavbar = () => {
         expand='lg'
         style={{
           width: '100%', 
-          color: '#fff', 
-          backgroundColor: 'lightblue',
-          height: '50px', 
+          color: '#ffffff', 
+          backgroundColor: '#b6d7a8',
+          height: '50px',
+          fontSize: '18px', 
         }}
         fluid="true"
       >
-     <Nav className='ml-auto' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center'  }}>
-          <Nav.Link as={Link} to='/register' style={{ marginRight: '15px' }}>Sign Up</Nav.Link>
-          <Nav.Link as={Link} to='/login' style={{ marginRight: '15px' }}>Login</Nav.Link>
-          <Nav.Link as={Link} to='/viewallchores' style={{ marginRight: '15px' }}>View Chores</Nav.Link>
-          {Auth.loggedIn() ? (
-            <>
-              <Nav.Link as={Link} to='/viewallchores' style={{ marginRight: '15px' }}>See Chores</Nav.Link>
-              <Nav.Link onClick={Auth.logout} style={{ marginRight: '15px' }}>Logout</Nav.Link>
-            </>
-          ) : (
-            <Nav.Link as={Link} to='/CreateChildAccount' style={{ marginRight: '15px' }}>Child login</Nav.Link>
-          )}
+              <Nav style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <Nav.Link as={Link} to='/' style={{ marginRight: '15px', color: '#fff' }}>Home</Nav.Link>
+          <Nav className='ml-auto' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center' }}>
+            <Nav.Link as={Link} to='/register' style={{ marginRight: '15px', color: '#fff' }}>Sign Up</Nav.Link>
+            <Nav.Link as={Link} to='/login' style={{ marginRight: '15px', color: '#fff' }}>Login</Nav.Link>
+            <Nav.Link as={Link} to='/viewallchores' style={{ marginRight: '15px', color: '#fff' }}>View Chores</Nav.Link>
+            {Auth.loggedIn() ? (
+              <>
+                <Nav.Link as={Link} to='/viewallchores' style={{ marginRight: '15px', color: '#fff' }}>See Chores</Nav.Link>
+                <Nav.Link onClick={Auth.logout} style={{ marginRight: '15px', color: '#fff' }}>Logout</Nav.Link>
+              </>
+            ) : (
+              <Nav.Link as={Link} to='/CreateChildAccount' style={{ marginRight: '15px', color: '#fff' }}>Child login</Nav.Link>
+            )}
+          </Nav>
         </Nav>
       </Navbar>
       <Modal
@@ -73,3 +77,4 @@ const AppNavbar = () => {
 };
 
 export default AppNavbar;
+
