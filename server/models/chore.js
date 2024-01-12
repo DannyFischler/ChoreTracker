@@ -15,11 +15,8 @@ const choreSchema = new mongoose.Schema({
   date_completed: {
     type: Date
   },
-  parent_comments: {
-    type: String
-  },
-  child_comments: {
-    type: String
+  isCompleted: { 
+    type: Boolean
   }
 });
 

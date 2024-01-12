@@ -3,17 +3,13 @@ const typeDefs = `
     id: ID!
     username: String!
     email: String
-    children: [Child]
+    savedChores: [Chore]
   }
 
-  type Child {
-    id: ID!
-    username: String!
-
-  }
-  type AddUserResponse {
+  type Auth {
     token: String
     user: User
+
   }
   
   type Chore {
@@ -29,12 +25,12 @@ const typeDefs = `
   }
   
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): AddUserResponse
+    addUser(username: String!, email: String!, password: String!): Auth
     CreateChildAccount(username: String!, password: String!): User
     updateChore(id: ID!, chore_name: String, amount: Float, isCompleted: Boolean): Chore
     deleteChore(id: ID!): Chore
-    login(username: String!, password: String!): String
-    saveChore(chore_name: String!, amount: Float): Chore
+    login(username: String!, password: String!): Auth
+    saveChore(chore_name: String!, amount: Float): User
 
   }
 `;

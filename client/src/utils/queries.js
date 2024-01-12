@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client';
 
+
 export const GET_CHORES = gql`
   query getChores {
     chores {
@@ -16,7 +17,7 @@ export const QUERY_ME = gql`
   {
     me {
       id
-      savedChores {
+      chores {
         chore_name
         amount
         isCompleted
