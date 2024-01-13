@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 import backgroundImage from '../assets/background5.jpeg';
+import { useNavigate } from 'react-router-dom';
 
 function ParentRegistration() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +21,7 @@ function ParentRegistration() {
       });
       const userId = user.id;
       console.log('Registration successful. User ID:', userId);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Registration failed:', error);
     }

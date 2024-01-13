@@ -164,7 +164,7 @@ function ViewAllChores() {
               >
                 <div
                   className="choretxt"
-                  style={{ fontSize: "15px", color: "black" }}
+                  style={{ fontSize: "15px", color: "#274e13" }}
                 >
                   <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
                   {chore.isCompleted ? (
