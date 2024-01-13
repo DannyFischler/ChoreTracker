@@ -12,6 +12,18 @@ export const GET_CHORES = gql`
   }
 `;
 
+export const GET_MY_CHORES = gql`
+  query getUserChores($userId: String!) {
+    userChores(userId: $userId) {
+      id
+      chore_name
+      amount
+      isCompleted
+      userId
+    }
+  }
+`;
+
 export const QUERY_ME = gql`
   {
     me {

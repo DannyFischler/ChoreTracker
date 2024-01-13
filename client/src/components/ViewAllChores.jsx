@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { UPDATE_CHORE, DELETE_CHORE, SAVE_CHORE } from "../utils/mutations";
-import { GET_CHORES, QUERY_ME } from "../utils/queries";
+import { GET_CHORES, GET_MY_CHORES, QUERY_ME } from "../utils/queries";
 import backgroundImage from "../assets/background5.jpeg";
 import childBackgroundImage from "../assets/doodle-background.jpg";
 
@@ -11,8 +11,14 @@ function ViewAllChores() {
   const [date, setDate] = useState("");
   const [newChoreName, setNewChoreName] = useState("");
   const [newChoreAmount, setNewChoreAmount] = useState("");
+  const userId =
+    Auth.getProfile().parentId == null
+      ? Auth.getProfile().userId
+      : Auth.getProfile().parentId;
 
-  const { loading, error, data } = useQuery(GET_CHORES);
+  const { loading, error, data } = useQuery(GET_MY_CHORES, {
+    variables: { userId },
+  });
   const [updateChoreMutation] = useMutation(UPDATE_CHORE);
   const [deleteChoreMutation] = useMutation(DELETE_CHORE);
   const [saveChoreMutation] = useMutation(SAVE_CHORE);
@@ -55,10 +61,10 @@ function ViewAllChores() {
         amount: parseFloat(newChoreAmount),
         userId: Auth.getProfile().userId,
       },
-      refetchQueries: [{ query: GET_CHORES }],
+      refetchQueries: [GET_MY_CHORES, `userChores`],
     })
       .then((res) => {
-        console.log("Chore saved successfully");
+        console.log("Chore saved successfully", res);
         setNewChoreName("");
         setNewChoreAmount("");
       })
@@ -159,86 +165,78 @@ function ViewAllChores() {
           <p style={commonStyles}>Loading...</p>
         ) : error ? (
           <p style={commonStyles}>Error fetching chores</p>
-        ) : data && data.chores.length > 0 ? (
+        ) : data && data.userChores.length > 0 ? (
           <div>
-            {data.chores
-              .filter((chore) =>
-                Auth.getProfile().parentId == null
-                  ? chore.userId == Auth.getProfile().userId
-                  : chore.userId == Auth.getProfile().parentId
-              )
-              .map((chore) => (
+            {data.userChores.map((chore) => (
+              <div
+                key={chore.id}
+                style={{
+                  border: "1px solid #ddd",
+                  padding: "10px",
+                  marginBottom: "10px",
+                  backgroundColor: "rgba(255, 255, 255, 0.7)",
+                }}
+              >
                 <div
-
-                  key={chore.id}
-                  style={{
-                    border: "1px solid #ddd",
-                    padding: "10px",
-                    marginBottom: "10px",
-                    backgroundColor: "rgba(255, 255, 255, 0.7)",
-                  }}
-
+                  className="choretxt"
+                  style={{ fontSize: "15px", color: "black" }}
                 >
-                  <div
-                    className="choretxt"
-                    style={{ fontSize: "15px", color: "black" }}
-                  >
-                    <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
-                    {chore.isCompleted ? (
-                      <>
-                        <span style={{ marginLeft: "10px", color: "green" }}>
-                          {" "}
-                          - Completed
-                        </span>
-                        <div style={{ fontSize: "15px", color: "gray" }}>
-                          Date Completed:
-                        </div>{" "}
-                        {/* Changed from h6 to div */}
-                        <input
-                          type="Date"
-                          onChange={(e) => setDate(e.target.value)}
-                          className="form-control"
-                          id="date"
-                          style={{ marginBottom: "10px" }}
-                        />
-                      </>
-                    ) : (
-                      <span style={{ marginLeft: "10px", color: "red" }}>
+                  <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
+                  {chore.isCompleted ? (
+                    <>
+                      <span style={{ marginLeft: "10px", color: "green" }}>
                         {" "}
-                        - Pending
+                        - Completed
                       </span>
-                    )}
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => updateChore(chore.id)}
-                    className="btn btn-success"
-                    style={{
-                      marginRight: "10px",
-                      fontSize: "14px",
-                      backgroundColor: "lightgreen",
-                      borderColor: "green",
-                    }}
-                  >
-                    ✔ Chore Complete!
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => deleteChore(chore.id)}
-                    className="btn btn-danger"
-                    style={{
-                      fontSize: "15px",
-                      backgroundColor: "lightcoral",
-                      borderColor: "darkred",
-                      display:
-                        Auth.getProfile().parentId == null ? "block" : "none",
-                    }}
-                  >
-                    Delete Chore
-                  </button>
+                      <div style={{ fontSize: "15px", color: "gray" }}>
+                        Date Completed:
+                      </div>{" "}
+                      {/* Changed from h6 to div */}
+                      <input
+                        type="Date"
+                        onChange={(e) => setDate(e.target.value)}
+                        className="form-control"
+                        id="date"
+                        style={{ marginBottom: "10px" }}
+                      />
+                    </>
+                  ) : (
+                    <span style={{ marginLeft: "10px", color: "red" }}>
+                      {" "}
+                      - Pending
+                    </span>
+                  )}
                 </div>
-              ))}
+
+                <button
+                  type="button"
+                  onClick={() => updateChore(chore.id)}
+                  className="btn btn-success"
+                  style={{
+                    marginRight: "10px",
+                    fontSize: "14px",
+                    backgroundColor: "lightgreen",
+                    borderColor: "green",
+                  }}
+                >
+                  ✔ Chore Complete!
+                </button>
+                <button
+                  type="button"
+                  onClick={() => deleteChore(chore.id)}
+                  className="btn btn-danger"
+                  style={{
+                    fontSize: "15px",
+                    backgroundColor: "lightcoral",
+                    borderColor: "darkred",
+                    display:
+                      Auth.getProfile().parentId == null ? "block" : "none",
+                  }}
+                >
+                  Delete Chore
+                </button>
+              </div>
+            ))}
           </div>
         ) : (
           <p style={noChoresStyle}>No chores. Take a break!</p>
