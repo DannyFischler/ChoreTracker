@@ -24,7 +24,7 @@ function ParentRegistration() {
         variables: { username, email, password },
       });
 
-      const userId = user.id,
+      const userId = user.id;
       console.log("Registration successful. User ID:", userId);
 
       const response = await login({ variables: { username, password } });
