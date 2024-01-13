@@ -12,9 +12,18 @@ const resolvers = {
         throw new Error("Error fetching users");
       }
     },
-    chores: async (_, { userId }) => {
+    chores: async () => {
       try {
         const chores = await Chore.find({ userId });
+        return chores;
+      } catch (error) {
+        console.error("Error fetching chores:", error);
+        throw new Error("Error fetching chores");
+      }
+    },
+    userChores: async (_, { userId }) => {
+      try {
+        const chores = await Chore.find({ userId: userId });
         return chores;
       } catch (error) {
         console.error("Error fetching chores:", error);

@@ -24,6 +24,7 @@ const typeDefs = `
   type Query {
     users: [User]
     chores: [Chore]
+    userChores(userId: String!): [Chore]
   }
   
   type Mutation {
@@ -32,8 +33,7 @@ const typeDefs = `
     updateChore(id: ID!, chore_name: String, amount: Float, isCompleted: Boolean): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): Auth
-    saveChore(chore_name: String!, amount: Float, userId: String): User
-
+    saveChore(chore_name: String!, amount: Float, userId: String): Chore
   }
 `;
 
