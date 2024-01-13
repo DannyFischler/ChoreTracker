@@ -8,6 +8,7 @@ function ParentRegistration() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [register, { data, loading, error }] = useMutation(ADD_USER);
   const [login, { loginData, loginLoading, loginError }] =
     useMutation(LOGIN_USER);
@@ -23,7 +24,7 @@ function ParentRegistration() {
         variables: { username, email, password },
       });
 
-      const userId = user.id;
+      const userId = user.id,
       console.log("Registration successful. User ID:", userId);
 
       const response = await login({ variables: { username, password } });
@@ -31,6 +32,7 @@ function ParentRegistration() {
       console.log("Logged in:", response);
       Auth.login(response.data.login.token);
       console.log("Profile:", Auth.getProfile());
+
     } catch (error) {
       console.error("Registration failed:", error);
     }

@@ -169,6 +169,7 @@ function ViewAllChores() {
               )
               .map((chore) => (
                 <div
+
                   key={chore.id}
                   style={{
                     border: "1px solid #ddd",
@@ -176,6 +177,7 @@ function ViewAllChores() {
                     marginBottom: "10px",
                     backgroundColor: "rgba(255, 255, 255, 0.7)",
                   }}
+
                 >
                   <div
                     className="choretxt"
