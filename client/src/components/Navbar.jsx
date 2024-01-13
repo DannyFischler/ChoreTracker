@@ -96,21 +96,14 @@ const AppNavbar = () => {
               style={{
                 marginRight: "15px",
                 color: "#fff",
-                display: Auth.loggedIn() ? "block" : "none",
+                display: Auth.loggedIn()
+                  ? Auth.getProfile().parentId == null
+                    ? "block"
+                    : "none"
+                  : "none",
               }}
             >
               Child Sign Up
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/CreateChildAccount"
-              style={{
-                marginRight: "15px",
-                color: "#fff",
-                display: Auth.loggedIn() ? "none" : "block",
-              }}
-            >
-              Child login
             </Nav.Link>
           </Nav>
         </Nav>

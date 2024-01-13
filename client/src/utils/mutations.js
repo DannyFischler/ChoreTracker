@@ -47,8 +47,8 @@ export const UPDATE_CHORE = gql`
 `;
 
 export const SAVE_CHORE = gql`
-  mutation saveChore($chore_name: String!, $amount: Float!) {
-    saveChore(chore_name: $chore_name, amount: $amount) {
+  mutation saveChore($chore_name: String!, $amount: Float!, $userId: String) {
+    saveChore(chore_name: $chore_name, amount: $amount, userId: $userId) {
       savedChores {
         id
         chore_name

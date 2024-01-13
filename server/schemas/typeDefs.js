@@ -18,7 +18,7 @@ const typeDefs = `
     chore_name: String!
     amount: Float
     isCompleted: Boolean
-    user: User 
+    userId: String 
   }
 
   type Query {
@@ -32,7 +32,7 @@ const typeDefs = `
     updateChore(id: ID!, chore_name: String, amount: Float, isCompleted: Boolean): Chore
     deleteChore(id: ID!): Chore
     login(username: String!, password: String!): Auth
-    saveChore(chore_name: String!, amount: Float): User
+    saveChore(chore_name: String!, amount: Float, userId: String): User
 
   }
 `;
