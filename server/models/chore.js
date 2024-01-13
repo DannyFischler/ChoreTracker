@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const user = require("./user.js");
 
 const choreSchema = new mongoose.Schema({
   chore_name: {
@@ -17,6 +18,9 @@ const choreSchema = new mongoose.Schema({
   },
   isCompleted: {
     type: Boolean,
+  },
+  userId: {
+    type: String,
   },
 });
 

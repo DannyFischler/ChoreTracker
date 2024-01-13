@@ -16,6 +16,7 @@ const Login = () => {
       console.log("Logged in:", response);
       // handle the login token here (e.g., store it in localStorage)
       Auth.login(response.data.login.token);
+      console.log("Profile:", Auth.getProfile());
       // redirect to the appropriate dashboard
     } catch (error) {
       // Error handling is managed by the `error` variable from useMutation

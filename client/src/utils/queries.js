@@ -1,5 +1,4 @@
-import { gql } from '@apollo/client';
-
+import { gql } from "@apollo/client";
 
 export const GET_CHORES = gql`
   query getChores {
@@ -8,10 +7,10 @@ export const GET_CHORES = gql`
       chore_name
       amount
       isCompleted
+      userId
     }
   }
 `;
-
 
 export const QUERY_ME = gql`
   {
@@ -25,4 +24,3 @@ export const QUERY_ME = gql`
     }
   }
 `;
-

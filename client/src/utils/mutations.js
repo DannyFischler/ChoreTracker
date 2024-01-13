@@ -7,28 +7,31 @@ export const LOGIN_USER = gql`
       user {
         id
         username
+        parentId
       }
     }
   }
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser(
+    $username: String!
+    $email: String
+    $password: String!
+    $parentId: String
+  ) {
+    addUser(
+      username: $username
+      email: $email
+      password: $password
+      parentId: $parentId
+    ) {
       token
       user {
         id
         username
+        parentId
       }
-    }
-  }
-`;
-
-export const CREATE_CHILD_ACCOUNT = gql`
-  mutation CreateChildAccount($username: String!, $password: String!) {
-    CreateChildAccount(username: $username, password: $password) {
-      id
-      username
     }
   }
 `;
@@ -44,8 +47,8 @@ export const UPDATE_CHORE = gql`
 `;
 
 export const SAVE_CHORE = gql`
-  mutation saveChore($chore_name: String!, $amount: Float!) {
-    saveChore(chore_name: $chore_name, amount: $amount) {
+  mutation saveChore($chore_name: String!, $amount: Float!, $userId: String) {
+    saveChore(chore_name: $chore_name, amount: $amount, userId: $userId) {
       savedChores {
         id
         chore_name
