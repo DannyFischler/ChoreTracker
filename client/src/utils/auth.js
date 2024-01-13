@@ -1,4 +1,4 @@
-import * as jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 class AuthService {
   getProfile() {
@@ -28,7 +28,7 @@ class AuthService {
   login(token) {
     // Saves user token to localStorage
     localStorage.setItem("token", token);
-    window.location.assign("/");
+    window.location.assign("/viewallchores");
   }
 
   logout() {

@@ -50,14 +50,22 @@ const AppNavbar = () => {
             <Nav.Link
               as={Link}
               to="/register"
-              style={{ marginRight: "15px", color: "#fff" }}
+              style={{
+                marginRight: "15px",
+                color: "#fff",
+                display: Auth.loggedIn() ? "none" : "block",
+              }}
             >
               Sign Up
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/login"
-              style={{ marginRight: "15px", color: "#fff" }}
+              style={{
+                marginRight: "15px",
+                color: "#fff",
+                display: Auth.loggedIn() ? "none" : "block",
+              }}
             >
               Login
             </Nav.Link>
@@ -72,31 +80,38 @@ const AppNavbar = () => {
             >
               View Chores
             </Nav.Link>
-            {Auth.loggedIn() ? (
-              <>
-                <Nav.Link
-                  as={Link}
-                  to="/viewallchores"
-                  style={{ marginRight: "15px", color: "#fff" }}
-                >
-                  See Chores
-                </Nav.Link>
-                <Nav.Link
-                  onClick={Auth.logout}
-                  style={{ marginRight: "15px", color: "#fff" }}
-                >
-                  Logout
-                </Nav.Link>
-              </>
-            ) : (
-              <Nav.Link
-                as={Link}
-                to="/CreateChildAccount"
-                style={{ marginRight: "15px", color: "#fff" }}
-              >
-                Child login
-              </Nav.Link>
-            )}
+            <Nav.Link
+              onClick={Auth.logout}
+              style={{
+                marginRight: "15px",
+                color: "#fff",
+                display: Auth.loggedIn() ? "block" : "none",
+              }}
+            >
+              Logout
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/CreateChildAccount"
+              style={{
+                marginRight: "15px",
+                color: "#fff",
+                display: Auth.loggedIn() ? "block" : "none",
+              }}
+            >
+              Child Sign Up
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to="/CreateChildAccount"
+              style={{
+                marginRight: "15px",
+                color: "#fff",
+                display: Auth.loggedIn() ? "none" : "block",
+              }}
+            >
+              Child login
+            </Nav.Link>
           </Nav>
         </Nav>
       </Navbar>

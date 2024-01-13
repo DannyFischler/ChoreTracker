@@ -4,6 +4,7 @@ const typeDefs = `
     username: String!
     email: String
     savedChores: [Chore]
+    parentId: String
   }
 
   type Auth {
@@ -26,7 +27,7 @@ const typeDefs = `
   }
   
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String, password: String!, parentId: String): Auth
     CreateChildAccount(username: String!, password: String!): User
     updateChore(id: ID!, chore_name: String, amount: Float, isCompleted: Boolean): Chore
     deleteChore(id: ID!): Chore

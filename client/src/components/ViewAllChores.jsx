@@ -40,6 +40,7 @@ function ViewAllChores() {
     })
       .then((res) => {
         console.log("Chore deleted successfully");
+        window.location.assign("/viewallchores");
       })
       .catch((err) => console.log(err));
   };

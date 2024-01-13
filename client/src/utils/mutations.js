@@ -7,28 +7,31 @@ export const LOGIN_USER = gql`
       user {
         id
         username
+        parentId
       }
     }
   }
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+  mutation addUser(
+    $username: String!
+    $email: String
+    $password: String!
+    $parentId: String
+  ) {
+    addUser(
+      username: $username
+      email: $email
+      password: $password
+      parentId: $parentId
+    ) {
       token
       user {
         id
         username
+        parentId
       }
-    }
-  }
-`;
-
-export const CREATE_CHILD_ACCOUNT = gql`
-  mutation CreateChildAccount($username: String!, $password: String!) {
-    CreateChildAccount(username: $username, password: $password) {
-      id
-      username
     }
   }
 `;

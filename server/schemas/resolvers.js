@@ -1,6 +1,6 @@
-const { user, Chore } = require('../models');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const { user, Chore } = require("../models");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const resolvers = {
   Query: {
@@ -9,7 +9,7 @@ const resolvers = {
         const users = await user.find();
         return users;
       } catch (error) {
-        throw new Error('Error fetching users');
+        throw new Error("Error fetching users");
       }
     },
     chores: async (_, { parent_id }) => {
@@ -17,26 +17,33 @@ const resolvers = {
         const chores = await Chore.find({ parent_id });
         return chores;
       } catch (error) {
-        console.error('Error fetching chores:', error);
-        throw new Error('Error fetching chores');
+        console.error("Error fetching chores:", error);
+        throw new Error("Error fetching chores");
       }
     },
   },
   Mutation: {
-    addUser: async (_, { username, email, password }) => {
+    addUser: async (_, { username, email, password, parentId }) => {
       const existingUser = await user.findOne({ username });
       if (existingUser) {
-        throw new Error('Username already exists');
+        throw new Error("Username already exists");
       }
-      const newUser = await user.create({ username, email, password });
-      const token = jwt.sign({ userId: newUser.id }, 'your-secret-key', { expiresIn: '1h' });
+      const newUser = await user.create({
+        username,
+        email,
+        password,
+        parentId,
+      });
+      const token = jwt.sign({ userId: newUser.id }, "your-secret-key", {
+        expiresIn: "1h",
+      });
       return { token, user: newUser };
     },
 
     CreateChildAccount: async (_, { username, password }) => {
       const existingUser = await user.findOne({ username });
       if (existingUser) {
-        throw new Error('Username already exists');
+        throw new Error("Username already exists");
       }
 
       const hashedPassword = await bcrypt.hash(password, 12);
@@ -44,12 +51,14 @@ const resolvers = {
       const childUser = new user({
         username,
         password: hashedPassword,
-        isChild: true,
+        parentId,
       });
 
       await childUser.save();
 
-      const token = jwt.sign({ userId: childUser.id }, 'your-secret-key', { expiresIn: '1h' });
+      const token = jwt.sign({ userId: childUser.id }, "your-secret-key", {
+        expiresIn: "1h",
+      });
 
       return { token, user: childUser };
     },
@@ -59,19 +68,28 @@ const resolvers = {
         const existingUser = await user.findOne({ username });
 
         if (!existingUser) {
-          throw new Error('User not found');
+          throw new Error("User not found");
         }
 
-        const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+        const isPasswordValid = await bcrypt.compare(
+          password,
+          existingUser.password
+        );
 
         if (!isPasswordValid) {
-          throw new Error('Invalid password');
+          throw new Error("Invalid password");
         }
 
-        const token = jwt.sign({ userId: existingUser.id }, 'your-secret-key', { expiresIn: '1h' });
+        const token = jwt.sign(
+          { userId: existingUser.id, parentId: existingUser.parentId },
+          "your-secret-key",
+          {
+            expiresIn: "1h",
+          }
+        );
         return { token, user: existingUser };
       } catch (error) {
-        throw new Error('Login failed');
+        throw new Error("Login failed");
       }
     },
 
@@ -83,11 +101,11 @@ const resolvers = {
           { new: true }
         );
         if (!updatedChore) {
-          throw new Error('Chore not found');
+          throw new Error("Chore not found");
         }
         return updatedChore;
       } catch (error) {
-        throw new Error('Error updating chore');
+        throw new Error("Error updating chore");
       }
     },
 
@@ -95,23 +113,23 @@ const resolvers = {
       try {
         const deletedChore = await Chore.findByIdAndDelete(id);
         if (!deletedChore) {
-          throw new Error('Chore not found');
+          throw new Error("Chore not found");
         }
         return deletedChore;
       } catch (error) {
-        throw new Error('Error deleting chore');
+        throw new Error("Error deleting chore");
       }
     },
 
     saveChore: async (_, { chore_name, amount }) => {
-          const newChore = new Chore({
-            chore_name,
-            amount,
-          });
-          await newChore.save();
-          return newChore;
-        }
-      }
-    };
-    
+      const newChore = new Chore({
+        chore_name,
+        amount,
+      });
+      await newChore.save();
+      return newChore;
+    },
+  },
+};
+
 module.exports = resolvers;
