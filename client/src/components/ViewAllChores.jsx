@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { UPDATE_CHORE, DELETE_CHORE, SAVE_CHORE } from '../utils/mutations'; 
-import { GET_CHORES, QUERY_ME } from '../utils/queries';
-import backgroundImage from '../assets/background5.jpeg'; 
+import React, { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { UPDATE_CHORE, DELETE_CHORE, SAVE_CHORE } from "../utils/mutations";
+import { GET_CHORES, QUERY_ME } from "../utils/queries";
+import backgroundImage from "../assets/background5.jpeg";
 
 function ViewAllChores() {
-  const [date, setDate] = useState('');
-  const [newChoreName, setNewChoreName] = useState('');
-  const [newChoreAmount, setNewChoreAmount] = useState('');
+  const [date, setDate] = useState("");
+  const [newChoreName, setNewChoreName] = useState("");
+  const [newChoreAmount, setNewChoreAmount] = useState("");
 
   const { loading, error, data } = useQuery(GET_CHORES);
   const [updateChoreMutation] = useMutation(UPDATE_CHORE);
@@ -54,22 +54,22 @@ function ViewAllChores() {
     })
       .then((res) => {
         console.log("Chore saved successfully");
-        setNewChoreName('');
-        setNewChoreAmount('');
+        setNewChoreName("");
+        setNewChoreAmount("");
       })
       .catch((err) => console.log(err));
   };
 
   const commonStyles = {
-    width: '100%',
-    padding: '8px',
-    marginBottom: '10px',
+    width: "100%",
+    padding: "8px",
+    marginBottom: "10px",
   };
 
   const noChoresStyle = {
-    fontSize: '28px', 
-    color: 'white',
-    fontWeight: 'bold',
+    fontSize: "28px",
+    color: "white",
+    fontWeight: "bold",
     ...commonStyles,
   };
 
@@ -164,7 +164,7 @@ function ViewAllChores() {
               >
                 <div
                   className="choretxt"
-                  style={{ fontSize: "15px", color: "white" }}
+                  style={{ fontSize: "15px", color: "black" }}
                 >
                   <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
                   {chore.isCompleted ? (

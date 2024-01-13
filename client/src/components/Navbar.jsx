@@ -64,7 +64,11 @@ const AppNavbar = () => {
             <Nav.Link
               as={Link}
               to="/viewallchores"
-              style={{ marginRight: "15px", color: "#fff" }}
+              style={{
+                marginRight: "15px",
+                color: "#fff",
+                display: Auth.loggedIn() ? "block" : "none",
+              }}
             >
               View Chores
             </Nav.Link>
