@@ -10,6 +10,7 @@ function CreateChildAccount() {
   const [password, setChildPassword] = useState("");
   const parentId = Auth.getProfile().userId;
   const [register, { data, loading, error }] = useMutation(ADD_USER);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,11 +22,19 @@ function CreateChildAccount() {
       } = await register({
         variables: { username, password, parentId },
       });
+
       const userId = user.id;
       console.log("Registration successful. User ID:", userId);
+
+      // Set the popup state to show the popup
+      setIsPopupOpen(true);
     } catch (error) {
       console.error("Registration failed:", error);
     }
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
   };
 
   return (
@@ -74,6 +83,26 @@ function CreateChildAccount() {
       </form>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error.message}</p>}
+
+      {isPopupOpen && !error && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'rgba(0, 100, 0, 0.9)', // Dark green color
+            color: 'white', // White text color
+            width: '300px',
+            padding: '10px',
+            borderRadius: '5px',
+            textAlign: 'center',
+          }}
+        >
+          <p>Child account created successfully!</p>
+          <button onClick={closePopup}>Close</button>
+        </div>
+      )}
     </div>
   );
 }
