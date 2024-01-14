@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { UPDATE_CHORE, DELETE_CHORE, SAVE_CHORE } from "../utils/mutations";
-import { GET_CHORES, GET_MY_CHORES, QUERY_ME } from "../utils/queries";
+import { GET_MY_CHORES, QUERY_ME } from "../utils/queries";
 import backgroundImage from "../assets/background5.jpeg";
 import childBackgroundImage from "../assets/doodle-background.jpg";
-
 import Auth from "../utils/auth";
 
 function ViewAllChores() {
@@ -71,18 +70,30 @@ function ViewAllChores() {
       .catch((err) => console.log(err));
   };
 
+  const completedChores = data?.userChores.filter((chore) => chore.isCompleted);
+  const totalAmount = completedChores?.reduce(
+    (sum, chore) => sum + chore.amount,
+    0
+  );
+
   const commonStyles = {
     width: "100%",
     padding: "8px",
     marginBottom: "10px",
   };
 
-  const noChoresStyle = {
-    fontSize: "28px",
-    color: "white",
-    fontWeight: "bold",
-    ...commonStyles,
-  };
+  const noChoresStyle = Auth.getProfile().parentId !== null
+  ? {
+      fontSize: "28px",
+      color: "darkgreen",
+      fontWeight: "bold",
+      ...commonStyles,
+    }
+  : {
+      display: "none", 
+    };
+
+
 
   return (
     <div
@@ -109,7 +120,6 @@ function ViewAllChores() {
           padding: "20px",
         }}
       >
-        {/* <h4 style={{ marginBottom: '20px', color: 'white' }}>Mark Chores Complete</h4> */}
         <form
           style={{
             marginBottom: "20px",
@@ -191,7 +201,6 @@ function ViewAllChores() {
                       <div style={{ fontSize: "15px", color: "gray" }}>
                         Date Completed:
                       </div>{" "}
-                      {/* Changed from h6 to div */}
                       <input
                         type="Date"
                         onChange={(e) => setDate(e.target.value)}
@@ -241,9 +250,16 @@ function ViewAllChores() {
         ) : (
           <p style={noChoresStyle}>No chores. Take a break!</p>
         )}
+
+        {totalAmount > 0 && (
+          <p style={{ color: "darkgreen", fontSize: "18px", fontWeight: "bold" }}>
+            Completed Chores total: ${totalAmount.toFixed(2)}
+          </p>
+        )}
       </div>
     </div>
   );
 }
 
 export default ViewAllChores;
+
