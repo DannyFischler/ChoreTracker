@@ -10,6 +10,10 @@ function ViewAllChores() {
   const [date, setDate] = useState("");
   const [newChoreName, setNewChoreName] = useState("");
   const [newChoreAmount, setNewChoreAmount] = useState("");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [selectedChoreId, setSelectedChoreId] = useState(null);
+
   const userId =
     Auth.getProfile().parentId == null
       ? Auth.getProfile().userId
@@ -26,18 +30,31 @@ function ViewAllChores() {
     console.log("Data after query:", data);
   }, [loading, data]);
 
-  const updateChore = (id) => {
+  const openConfirmationModal = (id) => {
+    setSelectedChoreId(id);
+    setShowConfirmationModal(true);
+  };
+
+  const closeConfirmationModal = () => {
+    setShowConfirmationModal(false);
+    setSelectedChoreId(null);
+  };
+
+  const updateChore = () => {
     updateChoreMutation({
       variables: {
-        id: id,
+        id: selectedChoreId,
         isCompleted: true,
         date_completed: date,
       },
     })
       .then((res) => {
         console.log("Chore updated successfully");
+        setIsPopupOpen(true);
       })
       .catch((err) => console.log(err));
+
+    closeConfirmationModal();
   };
 
   const deleteChore = (id) => {
@@ -82,18 +99,17 @@ function ViewAllChores() {
     marginBottom: "10px",
   };
 
-  const noChoresStyle = Auth.getProfile().parentId !== null
-  ? {
-      fontSize: "28px",
-      color: "darkgreen",
-      fontWeight: "bold",
-      ...commonStyles,
-    }
-  : {
-      display: "none", 
-    };
-
-
+  const noChoresStyle =
+    Auth.getProfile().parentId !== null
+      ? {
+          fontSize: "28px",
+          color: "darkgreen",
+          fontWeight: "bold",
+          ...commonStyles,
+        }
+      : {
+          display: "none",
+        };
 
   return (
     <div
@@ -219,7 +235,7 @@ function ViewAllChores() {
 
                 <button
                   type="button"
-                  onClick={() => updateChore(chore.id)}
+                  onClick={() => openConfirmationModal(chore.id)}
                   className="btn btn-success"
                   style={{
                     marginRight: "10px",
@@ -256,10 +272,50 @@ function ViewAllChores() {
             Completed Chores total: ${totalAmount.toFixed(2)}
           </p>
         )}
+
+        {/* Pop-up Modal */}
+        {isPopupOpen && (
+          <div className="popup">
+            <div className="popup-content">
+            </div>
+          </div>
+        )}
+
+        {/* Confirmation Modal */}
+        <div
+          style={{
+            display: showConfirmationModal ? "block" : "none",
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+          }}
+        >
+          <div
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              backgroundColor: 'rgba(0, 100, 0, 0.9)',
+              color: 'white', 
+              width: '300px',
+              padding: '10px',
+              borderRadius: '5px',
+              textAlign: 'center',
+            }}
+          >
+            <p>Are you sure you completed this chore?</p>
+            <button onClick={updateChore}>Yes!</button>
+            <span style={{ margin: '0 5px' }}></span> 
+            <button onClick={closeConfirmationModal}>Not yet!</button>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
 export default ViewAllChores;
-

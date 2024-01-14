@@ -26,7 +26,7 @@ function CreateChildAccount() {
       const userId = user.id;
       console.log("Registration successful. User ID:", userId);
 
-   
+  
       setIsPopupOpen(true);
     } catch (error) {
       console.error("Registration failed:", error);
