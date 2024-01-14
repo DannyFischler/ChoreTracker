@@ -26,7 +26,7 @@ function CreateChildAccount() {
       const userId = user.id;
       console.log("Registration successful. User ID:", userId);
 
-      // Set the popup state to show the popup
+   
       setIsPopupOpen(true);
     } catch (error) {
       console.error("Registration failed:", error);
@@ -91,8 +91,8 @@ function CreateChildAccount() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: 'rgba(0, 100, 0, 0.9)', // Dark green color
-            color: 'white', // White text color
+            backgroundColor: 'rgba(0, 100, 0, 0.9)', 
+            color: 'white', 
             width: '300px',
             padding: '10px',
             borderRadius: '5px',

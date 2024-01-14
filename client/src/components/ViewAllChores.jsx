@@ -82,12 +82,18 @@ function ViewAllChores() {
     marginBottom: "10px",
   };
 
-  const noChoresStyle = {
-    fontSize: "28px",
-    color: "white",
-    fontWeight: "bold",
-    ...commonStyles,
-  };
+  const noChoresStyle = Auth.getProfile().parentId !== null
+  ? {
+      fontSize: "28px",
+      color: "darkgreen",
+      fontWeight: "bold",
+      ...commonStyles,
+    }
+  : {
+      display: "none", 
+    };
+
+
 
   return (
     <div
@@ -245,8 +251,8 @@ function ViewAllChores() {
           <p style={noChoresStyle}>No chores. Take a break!</p>
         )}
 
-        {totalAmount && (
-          <p style={{ color: "darkgreen", fontSize: "22px", fontWeight: "bold" }}>
+        {totalAmount > 0 && (
+          <p style={{ color: "darkgreen", fontSize: "18px", fontWeight: "bold" }}>
             Completed Chores total: ${totalAmount.toFixed(2)}
           </p>
         )}
