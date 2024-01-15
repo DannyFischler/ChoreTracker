@@ -269,7 +269,7 @@ function ViewAllChores() {
 
         {totalAmount > 0 && (
           <p style={{ color: "darkgreen", fontSize: "18px", fontWeight: "bold" }}>
-            Completed Chores total: ${totalAmount.toFixed(2)}
+            Completed chores total: ${totalAmount.toFixed(2)}
           </p>
         )}
 
