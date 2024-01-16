@@ -21,7 +21,9 @@ As a user, I want to assign chores to my children to complete SO I can be update
 Sign up to create a user, a parent account has access to add, delete chores and create a child account. A child account has access to make a chore as being completed.
 
 ## Screenshot
+![Screenshot 2024-01-16 at 3 04 20 PM](https://github.com/DannyFischler/ChoreTracker/assets/138410240/e2cdcec3-7a36-456e-abcf-fa65f3589a09)
 
+![Screenshot 2024-01-16 at 3 04 40 PM](https://github.com/DannyFischler/ChoreTracker/assets/138410240/7cbd7e3b-dadc-4a67-b55e-db37f5f25b44)
 
 ## Deployed
 https://choretracker-humb.onrender.com/
