@@ -103,7 +103,7 @@ function ViewAllChores() {
     Auth.getProfile().parentId !== null
       ? {
           fontSize: "28px",
-          color: "darkgreen",
+          color: "#274e13",
           fontWeight: "bold",
           ...commonStyles,
         }
@@ -205,7 +205,7 @@ function ViewAllChores() {
               >
                 <div
                   className="choretxt"
-                  style={{ fontSize: "15px", color: "black" }}
+                  style={{ fontSize: "15px", color: "#274e13" }}
                 >
                   <b>{chore.chore_name}</b> for: <i>${chore.amount}.00</i>
                   {chore.isCompleted ? (
@@ -268,7 +268,7 @@ function ViewAllChores() {
         )}
 
         {totalAmount > 0 && (
-          <p style={{ color: "darkgreen", fontSize: "18px", fontWeight: "bold" }}>
+          <p style={{ color: "#274e13", fontSize: "18px", fontWeight: "bold" }}>
             Completed chores total: ${totalAmount.toFixed(2)}
           </p>
         )}
@@ -299,8 +299,8 @@ function ViewAllChores() {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              backgroundColor: 'rgba(0, 100, 0, 0.9)',
-              color: 'white', 
+              backgroundColor: '#b6d7a8',
+              color: '#274e13', 
               width: '300px',
               padding: '10px',
               borderRadius: '5px',
