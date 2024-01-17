@@ -7,10 +7,10 @@
   "scripts": {
     "start-server": "cd server && node server.js",
     "start-client": "cd client && npm start",
-    "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+    "dev": "concurrently \"npm run start-server\" \"npm run start-client\"",
     "install": "cd server && npm i && cd ../client && npm i --production=false",
     "build": "cd client && npm run build",
-    "render-build":"npm install && npm run build"
+    "render-build":"npm run install && npm run build"
   },
   "keywords": [],
   "author": "",
