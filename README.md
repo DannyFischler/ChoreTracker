@@ -29,7 +29,7 @@ Sign up to create a user, a parent account has access to add, delete chores and 
 https://choretracker-humb.onrender.com/
 
 ## Team members
-Tomas Rullan
-Daniel Fischler
-Amanda Barsanti
+Tomas Rullan,
+Daniel Fischler,
+Amanda Barsanti, and
 Adrian Camacho
